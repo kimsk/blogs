@@ -1,0 +1,25 @@
+base_url = "http://127.0.0.1:1111"
+compile_sass = true
+title = "แม่ปิง"
+description = ""
+generate_feed = false
+
+taxonomies = [
+    {name = "categories", rss = true},
+    {name = "tags", rss = true},
+]
+
+theme = "after-dark"
+
+[markdown]
+highlight_code = true 
+highlight_theme = "visual-studio-dark"
+
+[extra]
+author = "Karlkim"
+after_dark_menu = [
+    {url = "$BASE_URL", name = "Home"},
+    {url = "$BASE_URL/categories", name = "Categories"},
+    {url = "$BASE_URL/tags", name = "Tags"},
+]
+after_dark_title = "เขียนโค้ดริมแม่ปิง"
