@@ -23,7 +23,7 @@ let i = 1;
 println!("{} is {}", 'i', i);// i is 1
 ```
 
-แต่ไม่ใช่ตัวแปรทุกตัวจะสามารถใช้กับ `println!` และ `{}` ได้ ต้องเป็นตัวแปรประเภทที่สนับสนุน `Display` trait เท่านั้น ตัวอย่างเช่นถ้าเราสร้าง struct ขึ้นมาใหม่ เราต้องเขียนโค้ด `std::fmt::Display` ด้วย
+แต่ไม่ใช่ตัวแปรทุกตัวจะสามารถใช้กับ `println!` และ `{}` ได้ ต้องเป็นตัวแปรประเภทที่มี `Display` trait เท่านั้น ตัวอย่างเช่นถ้าเราสร้าง struct ของเราเองขึ้นมาใหม่ เราต้องเขียนโค้ด `std::fmt::Display` ด้วย
 
 ```rs
 use std::fmt;
@@ -31,6 +31,7 @@ struct Person {
     name: &'static str,
     age: u8,
 }
+
 impl fmt::Display for Person {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "name: {}, age: {}", self.name, self.age)

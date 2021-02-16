@@ -17,6 +17,7 @@ enum Team {
     Green,
     Blue
 }
+
 impl fmt::Display for Team {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
@@ -33,6 +34,7 @@ struct Person {
     age: u8,
     team: Team
 }
+
 impl fmt::Display for Person {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "team: {}, name: {}, age: {}", self.team, self.name, self.age)
