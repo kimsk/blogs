@@ -26,7 +26,7 @@ highlight_theme = "visual-studio-dark"
 accent_color = "orange"
 background_color = "green"
 # The logo text - defaults to "Terminimal theme"
-logo_text = "เขียนโค้ดริมแม่ปิง"
+logo_text = ":w!"
 
 # The logo link - defaults to base_url.
 #logo_home_link = "/take/me/away!"

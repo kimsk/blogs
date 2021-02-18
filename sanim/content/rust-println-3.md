@@ -79,6 +79,81 @@ println!("{:->25}+{:-<24}", "", "");
 ```
 สำหรับบรรทัดแรก เราพอเดาได้ว่าโค้ดข้างบนจะต้องแสดงค่า `ticker` แต่ที่พิเศษไปกว่านั้นคือเราต้องการให้บรรทัดนี้มีขนาดกว้าง 50 โดยที่ `ticker` ต้องอยู่ตรงกลาง (กำหนดโดย `^`) และให้เติมพื้นที่ว่างด้านซ้ายและขวาด้วย `=`
 
-บรรทัดที่สองคล้ายๆกับบรรทัดแรกแต่เราแบ่งบรรทัดนี้เป็นสองส่วน บรรทัดที่สามเราใช้ `<` และ `>` ใช้สำหรับวางตำแหน่งค่าที่จะแสดงด้านซ้ายและด้านขวาตามลำดับ
+บรรทัดที่สองคล้ายๆกับบรรทัดแรกแต่เราแบ่งบรรทัดนี้เป็นสองส่วน `bid` และ `ask`
 
-ตารางหุ้นเราดูเป็นรูปเป็นร่างขึ้นมา โพสต์หน้าเรามาดูกันต่อว่าจะทำให้ดูสวยงามขึ้นได้อีกแค่ไหน
+บรรทัดที่สามเราใช้ `<` ใน `{:-<25}` ใช้สำหรับวาง `|` ตรงตำแหน่งซ้ายสุด ตามด้วย `-` ให้ทั้งคู่มีขนาดรวมกัน 25 ตัวอักษร และด้านขวาตามลำดับ ส่วน `>` ใช้เพื่อวาง `|` ตรงตำแหน่งขวาสุดนำด้วย `-`
+
+บรรทัดที่สี่และห้าจะคล้ายกับบรรทัดที่สองและสามตามลำดับ
+
+ตารางหุ้นเราดูเป็นรูปเป็นร่างขึ้นมา แต่ผมแก้โค้ดเพิ่มอีกหน่อยเพื่อให้เราสามารถกำหนดขนาดของตารางได้ ใช้ [extended ASCII codes](https://www.webopedia.com/definitions/extended-ascii/) เช่น `┌`เพื่อให้ตารางดูสวยขึ้นมาอีกหน่อย แล้วยังใช้ crate `colored` เพื่อแสดงสีที่ต้องการ
+
+```rs
+use colored::*;
+
+fn print_stock_pretty_with_table_width(
+        table_width: usize,
+        ticker: &str,
+        bid: i64, ask: i64) {
+
+    let ticker_width = ticker.len();
+    let left_width = (table_width - ticker_width)/2;
+    let right_width = if ticker_width %2 == 0 {
+        (table_width - ticker_width)/2
+    } else {
+        (table_width - ticker_width)/2 + 1 
+    };
+    let bid = Money::from_minor(bid, iso::USD).to_string();
+    let ask = Money::from_minor(ask, iso::USD).to_string();
+
+    println!("{:>left_width$}{:─^ticker_width$}{:<right_width$}", "┌", "", "┐",
+        left_width=left_width, right_width=right_width,
+        ticker_width=ticker_width);
+    println!("┌{:─>left_width$}┤{}├{:─>right_width$}┐",
+        "", ticker.blue(), "",
+        left_width=left_width-2, right_width=right_width-2);
+    println!("│{: ^left_width$}└{:─^ticker_width$}┘{: ^right_width$}│",
+        "bid".green(), "┬", "ask".red(),
+        left_width=left_width-2, right_width=right_width-2,
+        ticker_width=ticker_width);
+    println!("├{:─^left_width$}{:─^ticker_width$}{:─^right_width$}┤",
+        "", "┼", "",
+        left_width=left_width-1, right_width=right_width-1,
+        ticker_width=ticker_width);
+    println!("│{: ^left_width$}{: ^ticker_width$}{: ^right_width$}│",
+        bid, "│", ask,
+        left_width=left_width-1, right_width=right_width-1,
+        ticker_width=ticker_width);
+    println!("└{:─^left_width$}{:─^ticker_width$}{:─^right_width$}┘",
+        "", "┴", "",
+        left_width=left_width-1, right_width=right_width-1,
+        ticker_width=ticker_width);
+}
+
+...
+
+fn main() {
+    let print_stock_pretty = |ticker: &str, bid: i64, ask: i64| {
+        print_stock_pretty_with_table_width(80, ticker, bid, ask);
+    };
+
+    let stocks = vec![
+        ("AMZN", 3_290_15, 3_294_95),
+        ("GOOGL", 1885_00, 1902_09),
+        ("FB", 275_70, 276_20),
+        ("GME", 312_00, 315_00),
+    ];
+
+    for (ticker, bid, ask) in stocks {
+        print_stock(ticker, bid, ask);
+        print_stock_pretty(ticker, bid, ask);
+    }
+}
+```
+จบโพสต์นี้โดยการเปรียบเทียบตารางทั้งสองแบบ เรื่อง `println!` ยังไม่จบมาติดตามโพสต์หน้าครับ
+
+{{ image(
+    src="/karlkim-println-3-1.png",
+    alt="Stonks",
+    position="left",
+    style="border-radius: 8px;"
+    ) }}
