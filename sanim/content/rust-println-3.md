@@ -132,7 +132,10 @@ fn print_stock_pretty_with_table_width(
 ...
 
 fn main() {
-    let print_stock_pretty = |ticker: &str, bid: i64, ask: i64| {
+    let print_stock_pretty_40 = |ticker: &str, bid: i64, ask: i64| {
+        print_stock_pretty_with_table_width(40, ticker, bid, ask);
+    };
+    let print_stock_pretty_80 = |ticker: &str, bid: i64, ask: i64| {
         print_stock_pretty_with_table_width(80, ticker, bid, ask);
     };
 
@@ -145,11 +148,12 @@ fn main() {
 
     for (ticker, bid, ask) in stocks {
         print_stock(ticker, bid, ask);
-        print_stock_pretty(ticker, bid, ask);
+        print_stock_pretty_40(ticker, bid, ask);
+        print_stock_pretty_80(ticker, bid, ask);
     }
 }
 ```
-จบโพสต์นี้โดยการเปรียบเทียบตารางทั้งสองแบบ เรื่อง `println!` ยังไม่จบมาติดตามโพสต์หน้าครับ
+จบโพสต์นี้โดยการเปรียบเทียบตารางว่าแตกต่างกันอย่างไร เรื่อง `println!` ยังไม่จบมาติดตามโพสต์หน้าครับ
 
 {{ image(
     src="/karlkim-println-3-1.png",

@@ -20,6 +20,8 @@ tags = ["rust", "println!"]
     style="border-radius: 8px;"
     ) }}
 
+> ผมใช้ `prompt` [starship](https://starship.rs/) เลยสามารถเห็นเวอร์ชั่นของ `rustc` และข้อมูลอย่างอื่นเช่น `git status` 
+
 ข้างล่างเป็นโค้ดที่เราจะดูมาโครว่าจะถูกขยายอย่างไร
 ```rs
 fn main() {
