@@ -132,10 +132,10 @@ fn print_stock_pretty_with_table_width(
 ...
 
 fn main() {
-    let print_stock_pretty_40 = |ticker: &str, bid: i64, ask: i64| {
+    let print_stock_pretty_40 = |ticker, bid, ask| {
         print_stock_pretty_with_table_width(40, ticker, bid, ask);
     };
-    let print_stock_pretty_80 = |ticker: &str, bid: i64, ask: i64| {
+    let print_stock_pretty_80 = |ticker, bid, ask| {
         print_stock_pretty_with_table_width(80, ticker, bid, ask);
     };
 
